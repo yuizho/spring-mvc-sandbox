@@ -1,6 +1,7 @@
 package com.github.yuizho.springmvcsandbox.controller
 
 
+import org.springframework.format.annotation.DateTimeFormat
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.mvc.support.RedirectAttributes
 import java.io.Serializable
+import java.time.LocalDate
 import javax.validation.constraints.NotNull
 import javax.validation.constraints.Size
 
@@ -28,6 +30,7 @@ class FormController {
         // this object will be stored HttpSession temporary
         // when the recirect is completed, the session will be discarded.
         redirectAttributes.addFlashAttribute(accountForm)
+        println(accountForm)
         return "redirect:complete"
     }
 
@@ -41,14 +44,9 @@ class FormController {
 data class AccountForm(
         @field:NotNull
         @field:Size(min = 1, max = 20)
-        var name: String = ""
-//        @field:NotNull
-//        @field:Size(min = 9, max = 11)
-//        val tel: String,
-//        @field:NotNull
-//        @field:DateTimeFormat(pattern = "yyyy-MM-dd")
-//        val dateOfBirth: LocalDate,
-//        @field:NotNull
-//        @field:Size(min = 9, max = 50)
-//        val email: String
+        val name: String = "",
+        @field:DateTimeFormat(pattern = "yyyy-MM-dd")
+        val dateOfBirth: LocalDate? = null,
+        @field:Size(min = 9, max = 50)
+        val email: String? = null
 ) : Serializable
